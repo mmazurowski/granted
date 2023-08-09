@@ -1,5 +1,5 @@
 import { PermissionDenied } from "./errors";
-import { PolicyStatement, canPerformAction } from "./index";
+import { canPerformAction } from "./index";
 import { Policy } from "./types";
 
 describe("policy checker", () => {
@@ -25,8 +25,6 @@ describe("policy checker", () => {
     expect(value).toEqual(false);
     expect(error).toBeInstanceOf(PermissionDenied);
     expect(error?.message).toEqual("Policy does not allow to access to the some:very:bad:resource.");
-
-    expect(PolicyStatement.from(policy).can({ actions, resource }).value).toEqual(false);
   });
 
   it("should fail when policy does not contain requested action", () => {
