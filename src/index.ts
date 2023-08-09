@@ -1,9 +1,12 @@
 import { PermissionDenied } from "./errors";
 import { Policy, Result } from "./types";
 
-type CanPerformActionArgs = {
+type Request = {
   actions: string[];
   resource: string;
+};
+
+type CanPerformActionArgs = Request & {
   policy: Policy;
 };
 
@@ -36,21 +39,3 @@ export const canPerformAction = (args: CanPerformActionArgs): Result => {
     error: new PermissionDenied(`Policy does not allow to perform "${actions.join(", ")}" on ${resource}.`),
   };
 };
-
-type CanArgs = Omit<CanPerformActionArgs, "policy">;
-
-export class PolicyStatement {
-  private readonly policy: Policy;
-
-  private constructor(policy: Policy) {
-    this.policy = policy;
-  }
-
-  public static from(policy: Policy) {
-    return new PolicyStatement(policy);
-  }
-
-  public can(args: CanArgs): Result {
-    return canPerformAction({ policy: this.policy, actions: args.actions, resource: args.resource });
-  }
-}
