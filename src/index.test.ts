@@ -1,4 +1,6 @@
-import { Policy, PolicyStatement, canPerformAction } from "./index";
+import { PermissionDenied } from "./errors";
+import { PolicyStatement, canPerformAction } from "./index";
+import { Policy } from "./types";
 
 describe("policy checker", () => {
   it("should fail when policy does not contain requested resource", () => {
@@ -14,14 +16,17 @@ describe("policy checker", () => {
     const actions = ["test"];
     const resource = "some:very:bad:resource";
 
-    const result = canPerformAction({
+    const { value, error } = canPerformAction({
       policy,
       resource,
       actions,
     });
 
-    expect(result).toEqual(false);
-    expect(PolicyStatement.from(policy).can({ actions, resource })).toEqual(false);
+    expect(value).toEqual(false);
+    expect(error).toBeInstanceOf(PermissionDenied);
+    expect(error?.message).toEqual("Policy does not allow to access to the some:very:bad:resource.");
+
+    expect(PolicyStatement.from(policy).can({ actions, resource }).value).toEqual(false);
   });
 
   it("should fail when policy does not contain requested action", () => {
@@ -36,7 +41,11 @@ describe("policy checker", () => {
 
     const result = canPerformAction({ policy, resource: "some:very:nice:resource", actions: ["otherGroup:action"] });
 
-    expect(result).toEqual(false);
+    expect(result.value).toEqual(false);
+    expect(result.error).toBeInstanceOf(PermissionDenied);
+    expect(result?.error?.message).toEqual(
+      'Policy does not allow to perform "otherGroup:action" on some:very:nice:resource.',
+    );
   });
 
   it("should fail when policy contain proper resource but actions dont match", () => {
@@ -52,7 +61,11 @@ describe("policy checker", () => {
     const actions = ["group:C"];
     const resource = "a";
 
-    expect(canPerformAction({ policy, resource, actions })).toEqual(false);
+    const result = canPerformAction({ policy, resource, actions });
+
+    expect(result.value).toEqual(false);
+    expect(result.error).toBeInstanceOf(PermissionDenied);
+    expect(result?.error?.message).toEqual('Policy does not allow to perform "group:C" on a.');
   });
 
   it("should fail when actions match but resource does not", () => {
@@ -67,11 +80,16 @@ describe("policy checker", () => {
 
     const resource = "b";
     let actions = ["group:A"];
-
-    expect(canPerformAction({ policy, actions, resource })).toEqual(false);
+    let result = canPerformAction({ policy, actions, resource });
+    expect(result.value).toEqual(false);
+    expect(result.error).toBeInstanceOf(PermissionDenied);
+    expect(result?.error?.message).toEqual("Policy does not allow to access to the b.");
 
     actions = ["group:B"];
-    expect(canPerformAction({ policy, actions, resource })).toEqual(false);
+    result = canPerformAction({ policy, actions, resource });
+    expect(result.value).toEqual(false);
+    expect(result.error).toBeInstanceOf(PermissionDenied);
+    expect(result.error?.message).toEqual("Policy does not allow to access to the b.");
   });
 
   it("should handle duplicates in matched actions", () => {
@@ -86,7 +104,9 @@ describe("policy checker", () => {
     const resource = "someResource";
     const actions = ["group:A", "group:A", "group:A"];
 
-    expect(canPerformAction({ policy, resource, actions })).toEqual(true);
+    const result = canPerformAction({ policy, actions, resource });
+    expect(result.value).toEqual(true);
+    expect(result.error).toBe(undefined);
   });
 
   it("should handle wildcard with complex resource", () => {
@@ -102,7 +122,9 @@ describe("policy checker", () => {
     const resource = "some:complex:wildcard:resource:name";
     const actions = ["group:A", "group:B"];
 
-    expect(canPerformAction({ policy, actions, resource })).toEqual(true);
+    const result = canPerformAction({ policy, actions, resource });
+    expect(result.value).toEqual(true);
+    expect(result.error).toBe(undefined);
   });
 
   it("should merge multiple documents into one", () => {
@@ -121,8 +143,8 @@ describe("policy checker", () => {
 
     const resource = "some:resource";
 
-    expect(canPerformAction({ policy, actions: ["group:A"], resource })).toEqual(true);
-    expect(canPerformAction({ policy, actions: ["group:B"], resource })).toEqual(true);
-    expect(canPerformAction({ policy, actions: ["group:A", "group:B"], resource })).toEqual(true);
+    expect(canPerformAction({ policy, actions: ["group:A"], resource }).value).toEqual(true);
+    expect(canPerformAction({ policy, actions: ["group:B"], resource }).value).toEqual(true);
+    expect(canPerformAction({ policy, actions: ["group:A", "group:B"], resource }).value).toEqual(true);
   });
 });

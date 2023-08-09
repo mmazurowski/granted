@@ -1,27 +1,5 @@
-type PolicyDocument = {
-  resource: string;
-  actions: string[];
-};
-
-export type Policy = {
-  documents: PolicyDocument[];
-};
-
-export const validate = (policy: Policy): Result<boolean> => {
-  if (false) {
-    return { error: new PolicyValidationError("Policy is not valid"), value: undefined };
-  }
-
-  return { value: true, error: undefined };
-};
-
-type Result<T> = { value: T; error?: never } | { value?: never; error: Error };
-
-class PolicyValidationError extends Error {
-  constructor(message: string) {
-    super(message);
-  }
-}
+import { PermissionDenied } from "./errors";
+import { Policy, Result } from "./types";
 
 type CanPerformActionArgs = {
   actions: string[];
@@ -31,20 +9,32 @@ type CanPerformActionArgs = {
 
 const WILDCARD = "*";
 
-export const canPerformAction = (args: CanPerformActionArgs): boolean => {
+export const canPerformAction = (args: CanPerformActionArgs): Result => {
   const { actions, resource, policy } = args;
 
-  const documentForWildcard = policy.documents
-    .filter((el) => el.resource === WILDCARD || resource.startsWith(el.resource.replaceAll(WILDCARD, "")))
-    .reduce((prev, next) => ({ ...prev, actions: prev.actions.concat(next.actions) }), { resource, actions: [] });
+  const documentWithMatchingResource = policy.documents.filter(
+    (el) => el.resource === WILDCARD || resource.startsWith(el.resource.replaceAll(WILDCARD, "")),
+  );
+
+  const documentForWildcard = documentWithMatchingResource.reduce(
+    (prev, next) => ({ ...prev, actions: prev.actions.concat(next.actions) }),
+    { resource, actions: [] },
+  );
 
   const matchingActionsOrWildcard = documentForWildcard.actions.filter((el) => el === "*" || actions.includes(el));
 
   if (matchingActionsOrWildcard.length === 1 || [...new Set(matchingActionsOrWildcard)].length === actions.length) {
-    return true;
+    return { value: true };
   }
 
-  return false;
+  if (documentWithMatchingResource.length === 0) {
+    return { value: false, error: new PermissionDenied(`Policy does not allow to access to the ${resource}.`) };
+  }
+
+  return {
+    value: false,
+    error: new PermissionDenied(`Policy does not allow to perform "${actions.join(", ")}" on ${resource}.`),
+  };
 };
 
 type CanArgs = Omit<CanPerformActionArgs, "policy">;
@@ -60,7 +50,7 @@ export class PolicyStatement {
     return new PolicyStatement(policy);
   }
 
-  public can(args: CanArgs): boolean {
+  public can(args: CanArgs): Result {
     return canPerformAction({ policy: this.policy, actions: args.actions, resource: args.resource });
   }
 }
