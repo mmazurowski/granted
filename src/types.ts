@@ -5,4 +5,6 @@ export type Policy = {
   }[];
 };
 
-export type Result = { value: true; error?: never } | { value: false; error: Error };
+export type Result<TSuccess, TFail = TSuccess, TError extends Error = Error> =
+  | { value: TSuccess; error?: never }
+  | { value: TFail; error: TError };
