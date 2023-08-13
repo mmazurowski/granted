@@ -1,4 +1,4 @@
-import { PermissionDenied, PermissionReason } from "./errors";
+import { PermissionDenied } from "./errors";
 import { Result, RequestPolicy, ResourcePolicy } from "./types";
 import { WILDCARD } from "./constants";
 
@@ -42,7 +42,7 @@ export const check = (args: CheckArgs): Result<true, false> => {
   if (documentWithMatchingResource.length === 0) {
     return {
       value: false,
-      error: new PermissionDenied(PermissionReason.RESOURCE_NOT_ALLOWED, {
+      error: PermissionDenied.ResourceNotAllowed({
         actions,
         resource,
       }),
@@ -51,6 +51,6 @@ export const check = (args: CheckArgs): Result<true, false> => {
 
   return {
     value: false,
-    error: new PermissionDenied(PermissionReason.ACTIONS_NOT_ALLOWED, { actions, resource }),
+    error: PermissionDenied.ActionsNotAllowed({ actions, resource }),
   };
 };

@@ -4,20 +4,23 @@ type ErrorMetadata = {
 };
 
 export class PermissionDenied extends Error {
-  constructor(reason: PermissionReason, meta: ErrorMetadata) {
-    switch (reason) {
-      case PermissionReason.RESOURCE_NOT_ALLOWED:
-        super(`Policy does not allow to access to the ${meta.resource}.`);
-        break;
-      case PermissionReason.ACTIONS_NOT_ALLOWED:
-        super(`Policy does not allow to perform "${meta.actions.join(", ")}" on ${meta.resource}.`);
-    }
-  }
-}
+  public readonly meta: ErrorMetadata;
 
-export enum PermissionReason {
-  ACTIONS_NOT_ALLOWED = "actions_not_allowed",
-  RESOURCE_NOT_ALLOWED = "resource_not_allowed",
+  constructor(reason: string, meta: ErrorMetadata) {
+    super(reason);
+    this.meta = meta;
+  }
+
+  public static ResourceNotAllowed(meta: ErrorMetadata) {
+    return new PermissionDenied(`Policy does not allow to access to the ${meta.resource}.`, meta);
+  }
+
+  public static ActionsNotAllowed(meta: ErrorMetadata) {
+    return new PermissionDenied(
+      `Policy does not allow to perform "${meta.actions.join(", ")}" on ${meta.resource}.`,
+      meta,
+    );
+  }
 }
 
 type Details = {
