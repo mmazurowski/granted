@@ -1,8 +1,6 @@
 import { Result } from "./types";
 import { PolicyMalformed } from "./errors";
-
-const WILDCARD = "*";
-const ACTION_SEPARATOR = ":";
+import { WILDCARD, SEPARATOR } from "./constants";
 
 const actionValidation = (action: string): boolean => {
   if (action.length === 0) {
@@ -13,7 +11,7 @@ const actionValidation = (action: string): boolean => {
     return true;
   }
 
-  const splitted = action.split(ACTION_SEPARATOR);
+  const splitted = action.split(SEPARATOR);
 
   if (splitted.length !== 3) {
     return false;
@@ -22,7 +20,7 @@ const actionValidation = (action: string): boolean => {
   const text = /[\w\W]*/;
   const [group, separator, groupAction] = splitted;
 
-  return text.test(group.trim()) && separator === ACTION_SEPARATOR && text.test(groupAction.trim());
+  return text.test(group.trim()) && separator === SEPARATOR && text.test(groupAction.trim());
 };
 
 export const isValid = (policy: any): Result<true, false, PolicyMalformed> => {
