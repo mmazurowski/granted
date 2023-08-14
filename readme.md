@@ -5,14 +5,13 @@
 [![Issues][issues-shield]][issues-url]
 [![MIT License][license-shield]][license-url]
 
-
 <!-- PROJECT LOGO -->
 <br />
 <div align="center">
   <a href="https://github.com/mmazurowski/granted">
   </a>
 
-<h3 align="center">Policy Checker</h3>
+<h3 align="center">Granted</h3>
 
   <p align="center">
     This project originated as vim config battleground.
@@ -27,8 +26,6 @@
     <a href="https://github.com/mmazurowski/granted/issues">Request Feature</a>
   </p>
 </div>
-
-
 
 <!-- TABLE OF CONTENTS -->
 <details>
@@ -50,26 +47,24 @@
   </ol>
 </details>
 
-
-
 <!-- ABOUT THE PROJECT -->
+
 ## About The Project
 
 This project was created as challenge to build something meaningful without exiting nvim.
 
-
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-
 <!-- GETTING STARTED -->
+
 ## Getting Started
 
 This is an example of how you may give instructions on setting up your project locally.
 To get a local copy up and running follow these simple example steps.
 
 ### Prerequisites
-Make sure to install Node v18.17.0 LTS and yarn.
 
+Make sure to install Node v18.17.0 LTS and yarn.
 
 ### Installation
 
@@ -80,9 +75,8 @@ Make sure to install Node v18.17.0 LTS and yarn.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-
-
 <!-- USAGE EXAMPLES -->
+
 ## Usage
 
 Use this space to show useful examples of how a project can be used. Additional screenshots, code examples and demos work well in this space. You may also link to more resources.
@@ -91,24 +85,23 @@ _For more examples, please refer to the [Documentation](https://example.com)_
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-
-
 <!-- CONTRIBUTING -->
+
 ## Contributing
 
 This project is not open for contribution. It's not actively developed.
 
-
 <!-- LICENSE -->
+
 ## License
 
 Distributed under the MIT License. See `LICENSE.txt` for more information.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
+
 [contributors-shield]: https://img.shields.io/github/contributors/mmazurowski/granted.svg
 [contributors-url]: https://github.com/mmazurowski/granted/graphs/contributors
 [forks-shield]: https://img.shields.io/github/forks/mmazurowski/granted.svg
@@ -136,4 +129,4 @@ Distributed under the MIT License. See `LICENSE.txt` for more information.
 [Bootstrap.com]: https://img.shields.io/badge/Bootstrap-563D7C&logo=bootstrap&logoColor=white
 [Bootstrap-url]: https://getbootstrap.com
 [JQuery.com]: https://img.shields.io/badge/jQuery-0769AD&logo=jquery&logoColor=white
-[JQuery-url]: https://jquery.com 
+[JQuery-url]: https://jquery.com
