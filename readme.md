@@ -4,13 +4,12 @@
 [![Stargazers][stars-shield]][stars-url]
 [![Issues][issues-shield]][issues-url]
 [![MIT License][license-shield]][license-url]
-[![LinkedIn][linkedin-shield]][linkedin-url]
 
 
 <!-- PROJECT LOGO -->
 <br />
 <div align="center">
-  <a href="https://github.com/mmazurowski/policy-checker">
+  <a href="https://github.com/mmazurowski/granted">
   </a>
 
 <h3 align="center">Policy Checker</h3>
@@ -18,14 +17,14 @@
   <p align="center">
     This project originated as vim config battleground.
     <br />
-    <a href="https://github.com/mmazurowski/policy-checker"><strong>Explore the docs »</strong></a>
+    <a href="https://github.com/mmazurowski/granted"><strong>Explore the docs »</strong></a>
     <br />
     <br />
-    <a href="https://github.com/mmazurowski/policy-checker">View Demo</a>
+    <a href="https://github.com/mmazurowski/granted">View Demo</a>
     ·
-    <a href="https://github.com/mmazurowski/policy-checker/issues">Report Bug</a>
+    <a href="https://github.com/mmazurowski/granted/issues">Report Bug</a>
     ·
-    <a href="https://github.com/mmazurowski/policy-checker/issues">Request Feature</a>
+    <a href="https://github.com/mmazurowski/granted/issues">Request Feature</a>
   </p>
 </div>
 
@@ -76,7 +75,7 @@ Make sure to install Node v18.17.0 LTS and yarn.
 
 1. Install package
    ```sh
-   npm install @mmazurowski/policy-checker
+   npm install @mmazurowski/granted
    ```
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
@@ -110,17 +109,16 @@ Distributed under the MIT License. See `LICENSE.txt` for more information.
 
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
-[contributors-shield]: https://img.shields.io/github/contributors/mmazurowski/policy-checker.svg
-[contributors-url]: https://github.com/mmazurowski/policy-checker/graphs/contributors
-[forks-shield]: https://img.shields.io/github/forks/mmazurowski/policy-checker.svg
-[forks-url]: https://github.com/mmazurowski/policy-checker/network/members
-[stars-shield]: https://img.shields.io/github/stars/mmazurowski/policy-checker.svg
-[stars-url]: https://github.com/mmazurowski/policy-checker/stargazers
-[issues-shield]: https://img.shields.io/github/issues/mmazurowski/policy-checker.svg
-[issues-url]: https://github.com/mmazurowski/policy-checker/issues
-[license-shield]: https://img.shields.io/github/license/mmazurowski/policy-checker.svg
-[license-url]: https://github.com/mmazurowski/policy-checker/blob/master/LICENSE.txt
-[linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg&logo=linkedin&colorB=555
+[contributors-shield]: https://img.shields.io/github/contributors/mmazurowski/granted.svg
+[contributors-url]: https://github.com/mmazurowski/granted/graphs/contributors
+[forks-shield]: https://img.shields.io/github/forks/mmazurowski/granted.svg
+[forks-url]: https://github.com/mmazurowski/granted/network/members
+[stars-shield]: https://img.shields.io/github/stars/mmazurowski/granted.svg
+[stars-url]: https://github.com/mmazurowski/granted/stargazers
+[issues-shield]: https://img.shields.io/github/issues/mmazurowski/granted.svg
+[issues-url]: https://github.com/mmazurowski/granted/issues
+[license-shield]: https://img.shields.io/github/license/mmazurowski/granted.svg
+[license-url]: https://github.com/mmazurowski/granted/blob/master/LICENSE.txt
 [linkedin-url]: https://linkedin.com/in/marcinmazurowski
 [product-screenshot]: images/screenshot.png
 [Next.js]: https://img.shields.io/badge/next.js-000000&logo=nextdotjs&logoColor=white
