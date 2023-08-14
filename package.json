@@ -1,11 +1,12 @@
 {
-  "name": "police-checker",
+  "name": "granted",
   "version": "1.0.0",
   "main": "index.js",
   "license": "MIT",
   "scripts": {
     "test": "jest src --forceExit --detectOpenHandles",
     "test:ci": "jest src --forceExit --detectOpenHandles",
+    "test:coverage": "jest src --forceExit --detectOpenHandles --coverage",
     "type-check": "tsc --noEmit"
   },
   "devDependencies": {
